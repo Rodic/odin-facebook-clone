@@ -1,0 +1,29 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: odin-facebook-clone_development
+  username: <%= ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  host: localhost
+  port: 5432
+
+test: &test
+  <<: *default
+  database: odin-facebook-clone_test
+  username: <%= ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  host: localhost
+  port: 5432
+
+production:
+  <<: *default
+  database: odin-facebook-clone_production
+  username: odin-facebook-clone
+  password: <%= ENV['ODIN-FACEBOOK-CLONE_DATABASE_PASSWORD'] %>
+
+cucumber:
+  <<: *test
