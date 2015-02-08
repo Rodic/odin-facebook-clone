@@ -22,6 +22,7 @@ end
 group :development do
   gem 'spring'
   gem 'guard-rspec',        '4.5.0'
+  gem 'rails-footnotes',    '4.1.5'
 end
 
 group :doc do
