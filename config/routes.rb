@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
   get 'static_pages/about'
 
-  devise_for :users
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  devise_for :users, :skip => [:sessions, :registrations]
+  as :user do
+    get    'signup'  => 'devise/registrations#new',    :as => :new_user_registration
+    post   'signup'  => 'devise/registrations#create', :as => :user_registration
+    get    'signin'  => 'devise/sessions#new',         :as => :new_user_session
+    post   'signin'  => 'devise/sessions#create',      :as => :user_session
+    delete 'signout' => 'devise/sessions#destroy',     :as => :destroy_user_session
+  end
 
   root 'static_pages#about'
   
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
