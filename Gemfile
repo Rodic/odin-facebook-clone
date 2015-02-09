@@ -11,6 +11,7 @@ gem 'turbolinks'
 gem 'jbuilder',             '2.0'
 gem 'haml-rails',           '0.8.2'
 gem 'figaro',               '1.1.0'
+gem 'devise',               '3.4.1'
 
 group :development, :test do
   gem 'rspec-rails',        '3.2.0'
@@ -23,6 +24,7 @@ group :development do
   gem 'spring'
   gem 'guard-rspec',        '4.5.0'
   gem 'rails-footnotes',    '4.1.5'
+  gem 'letter_opener',      '1.3.0'
 end
 
 group :doc do
