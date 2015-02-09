@@ -18,5 +18,5 @@ Feature: User sign up
     And I fill in "Password" with default password
     And I fill in "Password confirmation" with "mistake"
     And I click "Sign up"
-    Then I should be on the "re-signup" page
+    Then I should be on the "signup" page
     And I should see "Password confirmation doesn't match Password"

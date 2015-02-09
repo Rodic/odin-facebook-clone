@@ -4,6 +4,8 @@ Given(/^I am on the "(.*?)" page$/) do |page|
   case page
   when "signup"
     visit new_user_registration_path
+  when "signin"
+    visit new_user_session_path
   else
     raise "Unknown page: #{page}. Implement it in web_steps.rb"
   end
@@ -15,8 +17,10 @@ end
 
 Then(/^I should be on the "(.*?)" page$/) do |pg|
   case pg
-  when "re-signup"
-    expect(page.current_path).to eq(user_registration_path)
+  when "signup"
+    expect(page.current_path).to eq(new_user_registration_path)
+  when "signin"
+    expect(page.current_path).to eq(new_user_session_path)
   else
     raise "Unknown page: #{page}. Implement it in web_steps.rb"
   end
@@ -24,6 +28,10 @@ end
 
 
 # DEFAULT USER
+
+Given(/^I am registered$/) do
+  FactoryGirl.create(:user)
+end
 
 When(/^I fill in "(.*?)" with default email$/) do |field|
   fill_in field, with: FactoryGirl.attributes_for(:user)[:email]
