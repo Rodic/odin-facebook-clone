@@ -8,8 +8,8 @@
     = csrf_meta_tags
   %body
 
-    - flash.each do |key, msg|
-      .{class: "flash-#{key}"}
-        = msg
+    - flash.each do |key, value|
+      %div{ class: "flash-#{key}" }
+        = value
 
     = yield
