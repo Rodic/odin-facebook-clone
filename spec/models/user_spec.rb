@@ -68,18 +68,11 @@ RSpec.describe User, type: :model do
     let(:user_3) { FactoryGirl.create(:user, email: 'test3@facebook-odin.com') }
     let(:user_4) { FactoryGirl.create(:user, email: 'test4@facebook-odin.com') }
     let(:user_5) { FactoryGirl.create(:user, email: 'test5@facebook-odin.com') }
-    let(:friendship_1) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_2) }
-    let(:friendship_2) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_4) }
-    let(:friendship_3) { FactoryGirl.create(:friendship, user_1: user_3, user_2: user_1) }
-    let(:friendship_4) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_1) }
-
-    before do
-      friendship_1
-      friendship_2
-      friendship_3
-      friendship_4
-    end
-
+    let!(:friendship_1) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_2) }
+    let!(:friendship_2) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_4) }
+    let!(:friendship_3) { FactoryGirl.create(:friendship, user_1: user_3, user_2: user_1) }
+    let!(:friendship_4) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_1) }
+    
     it "has many initiated_friendships" do
       expect(user_1).to respond_to(:initiated_friendships)
     end
