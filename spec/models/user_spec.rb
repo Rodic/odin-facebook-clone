@@ -72,6 +72,8 @@ RSpec.describe User, type: :model do
     let!(:friendship_2) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_4) }
     let!(:friendship_3) { FactoryGirl.create(:friendship, user_1: user_3, user_2: user_1) }
     let!(:friendship_4) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_1) }
+    let!(:friendship_5) { FactoryGirl.create(:friendship, user_1: user_2, user_2: user_3) }
+    let!(:friendship_6) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_2) }
     
     it "has many initiated_friendships" do
       expect(user_1).to respond_to(:initiated_friendships)

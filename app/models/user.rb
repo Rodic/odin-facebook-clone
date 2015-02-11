@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   end
   
   def friends
-    User.joins('JOIN friendships f ON (users.id = f.user_1_id OR users.id = f.user_2_id)').where('users.id <> ?', id)
+    User.joins('JOIN friendships f ON (users.id = f.user_1_id OR users.id = f.user_2_id)').
+         where('users.id <> ? AND (f.user_1_id = ? OR f.user_2_id = ?)', id, id, id)
   end
 end
