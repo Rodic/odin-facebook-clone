@@ -26,6 +26,10 @@ Then(/^I should be on the "(.*?)" page$/) do |pg|
   end
 end
 
+When(/^I visit "(.*?)" profile page$/) do |email|
+  visit user_path(User.find_by_email(email))
+end
+
 
 # DEFAULT USER
 
@@ -46,18 +50,34 @@ When(/^I fill in "(.*?)" with default password confirmation$/) do |field|
 end
 
 
+# OTHER USERS
+
+Given(/^user "(.*?)" is registered$/) do |email|
+  FactoryGirl.create(:user, email: email)
+end
+
+
 # CLICKING
 
 When(/^I click "(.*?)"$/) do |btn|
   click_button btn
 end
 
+When(/^I follow "(.*?)"$/) do |link|
+  click_link link
+end
 
-# MATCHING CONTENT
+
+# MATCHING CONTENT / ASSERTING
 
 Then(/^I should see "(.*?)"$/) do |msg|
   expect(page).to have_content(msg)
 end
+
+Then(/^user "(.*?)" should have invite from me$/) do |email|
+  expect(User.find_by_email(email).invites.count).to eq(1)
+end
+
 
 
 # FILLING
