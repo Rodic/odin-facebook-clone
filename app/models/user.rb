@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
         .where("f.user_1_status = 'active' AND f.user_2_status = 'active'")
   end
   
-  def invites
+  def friend_requests
     accepted_friendships.where("user_2_status='pending'")
   end
 

@@ -1,0 +1,7 @@
+%h1 Friend requests
+
+%ol
+  - @user.friend_requests.each do |friend_request|
+    %li
+      = friend_request.user_1.email
+      = button_to "Accept", friendship_path(friend_request), method: :put

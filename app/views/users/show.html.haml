@@ -1,5 +1,8 @@
 %h1 Profile
 
+%p= link_to "You have #{pluralize(current_user.friend_requests.count, "friend request")}", user_friendships_path(current_user)
+
 %p= @user.email
 
-= button_to "Add Friend", controller: "friendships", action: "create", friend_id: @user.id
+- if @user != current_user
+  = button_to "Add Friend", controller: "friendships", action: "create", user_id: current_user.id, friend_id: @user.id

@@ -124,12 +124,12 @@ RSpec.describe User, type: :model do
       expect(user_1.friends).to contain_exactly(user_2, user_3, user_4)
     end
 
-    it "has invites" do
-      expect(user_1).to respond_to(:invites)
+    it "has friend_requests" do
+      expect(user_1).to respond_to(:friend_requests)
     end
 
-    it "has correct invites" do
-      expect(user_1.invites).to eq([friendship_4])
+    it "has correct friend_requests" do
+      expect(user_1.friend_requests).to eq([friendship_4])
     end
   end
 

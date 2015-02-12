@@ -8,4 +8,8 @@ class Friendship < ActiveRecord::Base
   belongs_to :user_1, class: User
   belongs_to :user_2, class: User
 
+  def activate
+    update_attribute(:user_2_status, 'active')
+  end
+
 end

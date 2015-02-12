@@ -30,6 +30,11 @@ When(/^I visit "(.*?)" profile page$/) do |email|
   visit user_path(User.find_by_email(email))
 end
 
+When(/^I visit my profile page$/) do
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  visit user_path(me)
+end
+
 
 # DEFAULT USER
 
@@ -37,13 +42,17 @@ Given(/^I am registered$/) do
   FactoryGirl.create(:user)
 end
 
-Given(/^I am logged$/) do
-  step "I am registered"
+When(/^I log$/) do
   attrs = FactoryGirl.attributes_for(:user)
   visit new_user_session_path
   fill_in "Email",    with: attrs[:email]
   fill_in "Password", with: attrs[:password]
   click_button 'Sign in'
+end
+
+Given(/^I am logged$/) do
+  step "I am registered"
+  step "I log"
 end
 
 When(/^I fill in "(.*?)" with default email$/) do |field|
@@ -58,11 +67,22 @@ When(/^I fill in "(.*?)" with default password confirmation$/) do |field|
   fill_in field, with: FactoryGirl.attributes_for(:user)[:password_confirmation]
 end
 
+Then(/^user "(.*?)" is among my friends$/) do |email|
+  expect(me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email]).friends).to include(User.find_by_email(email))
+end
+
+
 
 # OTHER USERS
 
 Given(/^user "(.*?)" is registered$/) do |email|
   FactoryGirl.create(:user, email: email)
+end
+
+Given(/^"(.*?)" sent friend request to me$/) do |email|
+  other = User.find_by_email(email)
+  me    = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  other.add_friend(me)
 end
 
 
@@ -84,7 +104,7 @@ Then(/^I should see "(.*?)"$/) do |msg|
 end
 
 Then(/^user "(.*?)" should have invite from me$/) do |email|
-  expect(User.find_by_email(email).invites.count).to eq(1)
+  expect(User.find_by_email(email).friend_requests.count).to eq(1)
 end
 
 
