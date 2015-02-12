@@ -21,7 +21,16 @@ class User < ActiveRecord::Base
   end
   
   def friends
-    User.joins('JOIN friendships f ON (users.id = f.user_1_id OR users.id = f.user_2_id)')
-        .where('users.id <> ? AND (f.user_1_id = ? OR f.user_2_id = ?)', id, id, id)
+    User.joins("JOIN friendships f ON (users.id = f.user_1_id OR users.id = f.user_2_id)")
+        .where("users.id <> ? AND (f.user_1_id = ? OR f.user_2_id = ?)", id, id, id)
+        .where("f.user_1_status = 'active' AND f.user_2_status = 'active'")
+  end
+  
+  def invites
+    accepted_friendships.where("user_2_status='pending'")
+  end
+
+  def add_friend(user)
+    Friendship.create(user_1: self, user_2: user, user_1_status: 'active', user_2_status: 'pending')
   end
 end

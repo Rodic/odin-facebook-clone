@@ -37,6 +37,15 @@ Given(/^I am registered$/) do
   FactoryGirl.create(:user)
 end
 
+Given(/^I am logged$/) do
+  step "I am registered"
+  attrs = FactoryGirl.attributes_for(:user)
+  visit new_user_session_path
+  fill_in "Email",    with: attrs[:email]
+  fill_in "Password", with: attrs[:password]
+  click_button 'Sign in'
+end
+
 When(/^I fill in "(.*?)" with default email$/) do |field|
   fill_in field, with: FactoryGirl.attributes_for(:user)[:email]
 end
@@ -77,7 +86,6 @@ end
 Then(/^user "(.*?)" should have invite from me$/) do |email|
   expect(User.find_by_email(email).invites.count).to eq(1)
 end
-
 
 
 # FILLING

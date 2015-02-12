@@ -4,10 +4,11 @@ Feature: Adding friends
   I want to be able to add them as friends
 
   Background:
-    Given I am registered
-    And user "friend@facebook-odin.com" is registered
+    Given I am logged
+    And user "friend@odin-facebook.com" is registered
 
   Scenario: Send friend request
-    When I visit "friend@facebook-odin.com" profile page
-    And I follow "Add Friend"
-    Then user "friend@facebook-odin.com" should have invite from me
+    When I visit "friend@odin-facebook.com" profile page
+    And I click "Add Friend"
+    Then I should see "You asked friend@odin-facebook.com to be your friend"
+    And user "friend@odin-facebook.com" should have invite from me

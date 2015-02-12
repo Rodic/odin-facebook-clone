@@ -2,4 +2,4 @@
 
 %p= @user.email
 
-= link_to("Add Friend", "#")
+= button_to "Add Friend", controller: "friendships", action: "create", friend_id: @user.id

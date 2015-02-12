@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     delete 'signout' => 'devise/sessions#destroy',     :as => :destroy_user_session
   end
   
-  resources :users, only: [ :show ]
+  resources :users,       only: [ :show ]
+  resources :friendships, only: [ :create ]
 
   root 'static_pages#about'
   

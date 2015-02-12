@@ -71,9 +71,10 @@ RSpec.describe User, type: :model do
     let!(:friendship_1) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_2) }
     let!(:friendship_2) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_4) }
     let!(:friendship_3) { FactoryGirl.create(:friendship, user_1: user_3, user_2: user_1) }
-    let!(:friendship_4) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_1) }
+    let!(:friendship_4) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_1, user_2_status: "pending") }
     let!(:friendship_5) { FactoryGirl.create(:friendship, user_1: user_2, user_2: user_3) }
     let!(:friendship_6) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_2) }
+
     
     it "has many initiated_friendships" do
       expect(user_1).to respond_to(:initiated_friendships)
@@ -120,7 +121,31 @@ RSpec.describe User, type: :model do
     end
 
     it "returns correct friends" do
-      expect(user_1.friends).to contain_exactly(user_2, user_3, user_4, user_5)
+      expect(user_1.friends).to contain_exactly(user_2, user_3, user_4)
+    end
+
+    it "has invites" do
+      expect(user_1).to respond_to(:invites)
+    end
+
+    it "has correct invites" do
+      expect(user_1.invites).to eq([friendship_4])
+    end
+  end
+
+  describe "methods" do
+    
+    let(:user)   { FactoryGirl.create(:user) }
+    let(:friend) { FactoryGirl.create(:user, email: "friend@odin-facebook.com") }
+
+    it "has add_friend method" do
+      expect(user).to respond_to(:add_friend)
+    end
+
+    it "adds correct friends" do
+      expect{ user.add_friend(friend) }.to change(Friendship, :count).by(1)
+      expect(Friendship.last.user_1).to eq(user)
+      expect(Friendship.last.user_2).to eq(friend)
     end
   end
 end
