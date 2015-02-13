@@ -1,0 +1,1 @@
+%p= link_to "You have #{pluralize(current_user.friend_requests.count, "friend request")}", user_friendships_path(current_user)
