@@ -10,13 +10,13 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 8, maximum: 50 }
   validates :email,    length: { maximum: 50 }, format: { with: EMAIL_MATCHER }
 
-  has_many :initiated_friendships, foreign_key: :user_1_id, class: Friendship
-  has_many :accepted_friendships,  foreign_key: :user_2_id, class: Friendship
+  has_many :initiated_relationships,      foreign_key: :user_1_id, class: Friendship
+  has_many :asked_to_be_in_relationships, foreign_key: :user_2_id, class: Friendship
   
-  has_many :initiated_friends, through: :initiated_friendships, source: :user_2, class: User
-  has_many :accepted_friends,  through: :accepted_friendships,  source: :user_1, class: User
+  has_many :invited_users,    through: :initiated_relationships,      source: :user_2, class: User
+  has_many :invited_by_users, through: :asked_to_be_in_relationships, source: :user_1, class: User
 
-  def friendships
+  def relationships
     Friendship.where('user_1_id=? OR user_2_id=?', id, id)
   end
   
@@ -27,11 +27,11 @@ class User < ActiveRecord::Base
   end
   
   def friend_requests
-    accepted_friendships.where("user_2_status='pending'")
+    asked_to_be_in_relationships.where("user_2_status='pending'")
   end
 
   def sent_requests
-    initiated_friendships.where("user_2_status='pending'")
+    initiated_relationships.where("user_2_status='pending'")
   end
 
   def add_friend(user)
