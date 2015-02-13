@@ -27,6 +27,18 @@ RSpec.describe Friendship, type: :model do
         expect(FactoryGirl.build(:friendship, user_2_status: status)).to be_valid
       end
     end
+
+    it "fails to add friendship if it is already in db" do
+      FactoryGirl.create(:friendship)
+      expect{ FactoryGirl.create(:friendship) }.to raise_error(ActiveRecord::RecordNotUnique)
+    end
+
+    it "fails to add inverse friendship if it is already in db" do
+      u1 = FactoryGirl.create(:user)
+      u2 = FactoryGirl.create(:user, email: "user2@odin-facebook.com")
+      f = FactoryGirl.create(:friendship, user_1: u1, user_2: u2)
+      expect{ FactoryGirl.create(:friendship, user_1: u2, user_2: u1) }.to raise_error(ActiveRecord::RecordNotUnique)
+    end
   end
 
   describe "associations" do
@@ -44,6 +56,5 @@ RSpec.describe Friendship, type: :model do
       expect(friendship.user_1).to eq(user_1)
       expect(friendship.user_2).to eq(user_2)
     end
-
   end
 end

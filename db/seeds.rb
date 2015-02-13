@@ -14,13 +14,18 @@ User.create!(email: 'alec.rodic@gmail.com', password: "supersecret", password_co
   User.create!(email: email, password: "supersecret", password_confirmation: "supersecret")
 end
 
-1000.times do
+3000.times do
   user_1 = User.order('RANDOM()').first
+   
   begin
-    user_2 = User.order('RANDOM()').first
-  end while user_1 == user_2
-  
-  puts "Adding friends #{user_1.email} - #{user_2.email}"
+    begin
+      user_2 = User.order('RANDOM()').first
+    end while user_1 == user_2
 
-  Friendship.create!(user_1: user_1, user_2: user_2, user_1_status: 'active', user_2_status: 'active')
+    puts "Adding friends #{user_1.email} - #{user_2.email}"
+    Friendship.create!(user_1: user_1, user_2: user_2, user_1_status: 'active', user_2_status: 'active')
+  rescue Exception => e
+    puts e
+    retry
+  end
 end
