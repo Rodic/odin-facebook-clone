@@ -6,8 +6,21 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-100.times do
+User.create!(email: 'alec.rodic@gmail.com', password: "supersecret", password_confirmation: "supersecret")
+
+99.times do
   email = Faker::Internet.email
   puts "Inserting #{email}"
   User.create!(email: email, password: "supersecret", password_confirmation: "supersecret")
+end
+
+1000.times do
+  user_1 = User.order('RANDOM()').first
+  begin
+    user_2 = User.order('RANDOM()').first
+  end while user_1 == user_2
+  
+  puts "Adding friends #{user_1.email} - #{user_2.email}"
+
+  Friendship.create!(user_1: user_1, user_2: user_2, user_1_status: 'active', user_2_status: 'active')
 end
