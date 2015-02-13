@@ -13,7 +13,7 @@ class FriendshipsController < ApplicationController
 
   def update
     friendship = Friendship.find(params[:id])
-    friendship.activate
+    friendship.activate if friendship.user_2 == current_user
     redirect_to user_friendships_path(friendship.user_2), notice: "You are now firend with #{friendship.user_1.email}"
   end
 
