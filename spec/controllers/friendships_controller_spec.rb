@@ -21,11 +21,11 @@ RSpec.describe FriendshipsController, type: :controller do
     before { sign_in user }
 
     it 'redirects back to user page' do
-      expect(post :create, user_id: user.id, friend_id: friend.id).to redirect_to(user_path(friend))
+      expect(post :create, friend_id: friend.id).to redirect_to(user_path(friend))
     end
 
     it 'creates new friendship' do
-      expect{post :create, user_id: user.id, friend_id: friend.id}.to change(Friendship, :count).by(1)
+      expect{post :create, friend_id: friend.id}.to change(Friendship, :count).by(1)
     end
   end
 

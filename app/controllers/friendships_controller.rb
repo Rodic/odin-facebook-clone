@@ -8,9 +8,8 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    user   = User.find(params[:user_id])
     friend = User.find(params[:friend_id])
-    user.add_friend(friend)
+    current_user.add_friend(friend)
     redirect_to user_path(friend), notice: "You asked #{friend.email} to be your friend"
   end
 

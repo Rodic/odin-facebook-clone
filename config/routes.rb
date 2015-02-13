@@ -11,10 +11,10 @@ Rails.application.routes.draw do
   end
   
   resources :users, only: [ :show ] do
-    resources :friendships, only: [ :index, :create ]
+    resources :friendships, only: [ :index ]
   end
 
-  resources :friendships, only: [ :update ]
+  resources :friendships, only: [ :create, :update ]
   
   get 'friendship/requests' => 'friendships#requests'
 
