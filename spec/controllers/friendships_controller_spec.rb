@@ -6,6 +6,8 @@ RSpec.describe FriendshipsController, type: :controller do
     
     let(:user) { FactoryGirl.create(:user) }
 
+    before { sign_in user }
+
     it "renders correct template" do
       expect(get :index, user_id: user.id).to render_template('index')
     end
