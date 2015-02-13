@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :friendships, only: [ :update ]
 
-  root 'static_pages#about'
+  root 'users#show'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
