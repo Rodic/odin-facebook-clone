@@ -8,7 +8,7 @@ class Friendship < ActiveRecord::Base
   belongs_to :user_1, class: User
   belongs_to :user_2, class: User
 
-  # Raise the same error as Postgress do when unique constraint is violate
+  # Raise the same error as Postgres do when unique constraint is violate
   before_save :users_permutations_not_allowed
 
   def activate
