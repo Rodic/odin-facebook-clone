@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     accepted_friendships.where("user_2_status='pending'")
   end
 
+  def sent_requests
+    initiated_friendships.where("user_2_status='pending'")
+  end
+
   def add_friend(user)
     Friendship.create(user_1: self, user_2: user, user_1_status: 'active', user_2_status: 'pending')
   end

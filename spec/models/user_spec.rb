@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
     let(:user_4) { FactoryGirl.create(:user, email: 'test4@facebook-odin.com') }
     let(:user_5) { FactoryGirl.create(:user, email: 'test5@facebook-odin.com') }
     let!(:friendship_1) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_2) }
-    let!(:friendship_2) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_4) }
+    let!(:friendship_2) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_4, user_2_status: "pending") }
     let!(:friendship_3) { FactoryGirl.create(:friendship, user_1: user_3, user_2: user_1) }
     let!(:friendship_4) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_1, user_2_status: "pending") }
     let!(:friendship_5) { FactoryGirl.create(:friendship, user_1: user_2, user_2: user_3) }
@@ -121,15 +121,23 @@ RSpec.describe User, type: :model do
     end
 
     it "returns correct friends" do
-      expect(user_1.friends).to contain_exactly(user_2, user_3, user_4)
+      expect(user_1.friends).to contain_exactly(user_2, user_3)
     end
 
     it "has friend_requests" do
       expect(user_1).to respond_to(:friend_requests)
     end
 
-    it "has correct friend_requests" do
+    it "returns correct friend_requests" do
       expect(user_1.friend_requests).to eq([friendship_4])
+    end
+
+    it "has sent_requests" do
+      expect(user_1).to respond_to(:sent_requests)
+    end
+
+    it "returns correct sent_requests" do
+      expect(user_1.sent_requests).to eq([friendship_2])
     end
   end
 
