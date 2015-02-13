@@ -9,6 +9,7 @@
   %body
 
     = render partial: 'layouts/navbar'
+    = render partial: 'users/notifications'
 
     - flash.each do |key, value|
       %div{ class: "flash-#{key}" }
