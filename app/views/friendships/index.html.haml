@@ -1,14 +1,7 @@
-%h1 Friend requests:
+%h1
+  = @user.email
+  friends:
 
-%ol
-  - current_user.friend_requests.each do |friend_request|
-    %li
-      = friend_request.user_1.email
-      = button_to "Accept", friendship_path(friend_request), method: :put
-
-%h1 Your requests:
-
-%ol
-  - current_user.sent_requests.each do |sent_request|
-    %li
-      = link_to sent_request.user_2.email, sent_request.user_2
+  %ul
+    - @user.friends.each do |friend|
+      %li= link_to friend.email, friend

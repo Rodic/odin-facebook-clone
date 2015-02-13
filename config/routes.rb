@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   end
 
   resources :friendships, only: [ :update ]
+  
+  get 'friendship/requests' => 'friendships#requests'
 
   root 'users#show'
   

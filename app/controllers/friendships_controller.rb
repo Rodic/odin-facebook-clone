@@ -4,6 +4,9 @@ class FriendshipsController < ApplicationController
     @user = User.find(params[:user_id])
   end
 
+  def requests
+  end
+
   def create
     user   = User.find(params[:user_id])
     friend = User.find(params[:friend_id])
