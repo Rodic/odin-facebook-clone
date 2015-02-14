@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :friendships, only: [ :index ]
   end
 
-  resources :friendships, only: [ :create, :update ]
+  resources :friendships, only: [ :create, :update, :destroy ]
   
   get 'friendship/requests' => 'friendships#requests'
 

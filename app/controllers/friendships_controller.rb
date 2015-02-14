@@ -19,4 +19,9 @@ class FriendshipsController < ApplicationController
     redirect_to user_friendships_path(friendship.user_2), notice: "You are now firend with #{friendship.user_1.email}"
   end
 
+  def destroy
+    friendship = Friendship.find(params[:id])
+    friendship.destroy
+    redirect_to friendship_requests_path, notice: "You declined #{friendship.user_1.email} friend request"
+  end
 end

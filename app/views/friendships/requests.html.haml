@@ -1,10 +1,16 @@
 %h1 Requests sent to you:
 
-%ol
-  - current_user.friend_requests.each do |friend_request|
-    %li
-      = friend_request.user_1.email
-      = button_to "Accept", friendship_path(friend_request), method: :put
+%table
+  %tr
+    %th Email
+    %th
+    %th
+  %tbody
+    - current_user.friend_requests.each do |friend_request|
+      %tr
+        %td= link_to friend_request.user_1.email, friend_request.user_1
+        %td= button_to "Accept",  friendship_path(friend_request), method: :put
+        %td= button_to "Decline", friendship_path(friend_request), method: :delete
 
 %h1 Your requests:
 

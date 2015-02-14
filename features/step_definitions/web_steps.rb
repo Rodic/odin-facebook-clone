@@ -68,9 +68,12 @@ When(/^I fill in "(.*?)" with default password confirmation$/) do |field|
 end
 
 Then(/^user "(.*?)" is among my friends$/) do |email|
-  expect(me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email]).friends).to include(User.find_by_email(email))
+  expect(User.find_by_email(FactoryGirl.attributes_for(:user)[:email]).friends).to include(User.find_by_email(email))
 end
 
+Then(/^my request box should be empty$/) do
+  expect(User.find_by_email(FactoryGirl.attributes_for(:user)[:email]).friend_requests).to be_empty
+end
 
 
 # OTHER USERS

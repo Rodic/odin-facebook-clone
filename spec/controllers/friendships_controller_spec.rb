@@ -43,4 +43,21 @@ RSpec.describe FriendshipsController, type: :controller do
       expect(put :update, id: Friendship.last).to redirect_to(user_friendships_path(user))
     end
   end
+
+  describe "destroy" do
+
+    let(:user_1) { FactoryGirl.create(:user) }
+    let(:user_2) { FactoryGirl.create(:user, email: "friend@odin-facebook.com") }
+    let!(:friendship) { FactoryGirl.create(:friendship, user_1: user_1, user_2: user_2, user_2_status: 'pending') }
+
+    before { sign_in user_2 }
+
+    it "redirects back to user requests page" do
+      expect(delete :destroy, id: friendship.id).to redirect_to(friendship_requests_path)
+    end
+
+    it "deletes friendship record from database" do
+      expect{ delete :destroy, id: friendship.id }.to change(Friendship, :count).by(-1)
+    end
+  end
 end
