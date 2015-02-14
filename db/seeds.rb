@@ -14,7 +14,7 @@ User.create!(email: 'alec.rodic@gmail.com', password: "supersecret", password_co
   User.create!(email: email, password: "supersecret", password_confirmation: "supersecret")
 end
 
-3000.times do
+1000.times do
   user_1 = User.order('RANDOM()').first
    
   begin

@@ -143,8 +143,8 @@ RSpec.describe User, type: :model do
 
   describe "methods" do
     
-    let(:user)   { FactoryGirl.create(:user) }
-    let(:friend) { FactoryGirl.create(:user, email: "friend@odin-facebook.com") }
+    let(:user)       { FactoryGirl.create(:user) }
+    let(:friend)     { FactoryGirl.create(:user, email: "friend@odin-facebook.com") }
 
     it "has add_friend method" do
       expect(user).to respond_to(:add_friend)
@@ -155,5 +155,24 @@ RSpec.describe User, type: :model do
       expect(Friendship.last.user_1).to eq(user)
       expect(Friendship.last.user_2).to eq(friend)
     end
+
+    it "can determine is friend of other user" do
+      FactoryGirl.create(:friendship, user_1: user, user_2: friend)
+      user_3 = FactoryGirl.create(:user, email: "not-friend@odin-facebook.com")
+      expect(user.friend?(friend)).to be_truthy
+      expect(friend.friend?(user)).to be_truthy
+      expect(user.friend?(user_3)).to be_falsey
+      expect(user_3.friend?(friend)).to be_falsey
+    end
+
+    it "can determine if other user is addable" do
+      FactoryGirl.create(:friendship, user_1: user, user_2: friend)
+      user_3 = FactoryGirl.create(:user, email: "not-friend@odin-facebook.com")
+      expect(user.addable?(user)).to be_falsey
+      expect(friend.addable?(user)).to be_falsey
+      expect(user.addable?(user_3)).to be_truthy
+      expect(user_3.addable?(friend)).to be_truthy
+    end
+
   end
 end

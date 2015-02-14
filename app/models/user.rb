@@ -37,4 +37,12 @@ class User < ActiveRecord::Base
   def add_friend(user)
     Friendship.create(user_1: self, user_2: user, user_1_status: 'active', user_2_status: 'pending')
   end
+
+  def friend?(other)
+    Friendship.find_by(user_1: self, user_2: other) || Friendship.find_by(user_1: other, user_2: self)
+  end
+
+  def addable?(other)
+    self != other && !other.friend?(self)
+  end
 end

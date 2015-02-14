@@ -4,9 +4,6 @@ class FriendshipsController < ApplicationController
     @user = User.find(params[:user_id])
   end
 
-  def requests
-  end
-
   def create
     friend = User.find(params[:friend_id])
     current_user.add_friend(friend)
@@ -23,5 +20,9 @@ class FriendshipsController < ApplicationController
     friendship = Friendship.find(params[:id])
     friendship.destroy
     redirect_to friendship_requests_path, notice: "You declined #{friendship.user_1.email} friend request"
+  end
+
+  def requests
+    # action for current_user's friend requests
   end
 end
