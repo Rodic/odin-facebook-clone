@@ -17,12 +17,12 @@ class User < ActiveRecord::Base
   has_many :users_invited_by, through: :friendships_invited_to, source: :user_1, class: User
 
   def friendships
-    Friendship.where('user_1_id=? OR user_2_id=?', id, id)
+    Friendship.where('user_1_id=:id OR user_2_id=:id', id: id)
   end
   
   def friends
     User.joins("JOIN friendships f ON (users.id = f.user_1_id OR users.id = f.user_2_id)")
-        .where("users.id <> ? AND (f.user_1_id = ? OR f.user_2_id = ?)", id, id, id)
+        .where("users.id <> :id AND (f.user_1_id = :id OR f.user_2_id = :id)", id: id)
         .where("f.user_1_status = 'active' AND f.user_2_status = 'active'")
   end
   
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   def friend?(other)
     ids = { id_1: self.id, id_2: other.id }
-    !Friendship.where('user_1_id=:id_1 AND user_2_id=:id_2 OR user_1_id=:id_2 AND user_2_id=:id_1', ids).empty?
+    Friendship.where('user_1_id=:id_1 AND user_2_id=:id_2 OR user_1_id=:id_2 AND user_2_id=:id_1', ids).any?
   end
 
   def addable?(other)
