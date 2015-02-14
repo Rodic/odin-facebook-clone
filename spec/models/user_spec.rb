@@ -76,28 +76,28 @@ RSpec.describe User, type: :model do
     let!(:friendship_6) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_2) }
 
     
-    it "has many initiated_relationships" do
-      expect(user_1).to respond_to(:initiated_relationships)
+    it "has many initiated_friendships" do
+      expect(user_1).to respond_to(:initiated_friendships)
     end
 
-    it "returns correct values for initiated_relationships" do
-      expect(user_1.initiated_relationships).to eq([friendship_1, friendship_2])
+    it "returns correct values for initiated_friendships" do
+      expect(user_1.initiated_friendships).to eq([friendship_1, friendship_2])
     end
 
-    it "has many asked_to_be_in_relationships" do
-      expect(user_1).to respond_to(:asked_to_be_in_relationships)
+    it "has many friendships_invited_to" do
+      expect(user_1).to respond_to(:friendships_invited_to)
     end
 
-    it "returns correct values for asked_to_be_in_relationships" do
-      expect(user_1.asked_to_be_in_relationships).to eq([friendship_3, friendship_4])
+    it "returns correct values for friendships_invited_to" do
+      expect(user_1.friendships_invited_to).to eq([friendship_3, friendship_4])
     end
 
-    it "has many relationships" do
-      expect(user_1).to respond_to(:relationships)
+    it "has many friendships" do
+      expect(user_1).to respond_to(:friendships)
     end
 
-    it "returns correct relationships" do
-      expect(user_1.relationships).to eq([friendship_1, friendship_2, friendship_3, friendship_4])
+    it "returns correct friendships" do
+      expect(user_1.friendships).to eq([friendship_1, friendship_2, friendship_3, friendship_4])
     end
 
     it "has many invited_users" do
@@ -108,12 +108,12 @@ RSpec.describe User, type: :model do
       expect(user_1.invited_users).to eq([user_2, user_4])
     end
 
-    it "has many invited_by_users" do
-      expect(user_1).to respond_to(:invited_by_users)
+    it "has many users_invited_by" do
+      expect(user_1).to respond_to(:users_invited_by)
     end
 
-    it "returns correct invited_by_users" do
-      expect(user_1.invited_by_users).to eq([user_3, user_5])
+    it "returns correct users_invited_by" do
+      expect(user_1.users_invited_by).to eq([user_3, user_5])
     end
 
     it "has many firends" do
