@@ -14,4 +14,4 @@ Feature: Decline friendship
     Then I should see "friend@odin-facebook.com"
     When I click "Decline"
     Then my request box should be empty
-    And I should see "You declined friend@odin-facebook.com friend request"
+    And I should see "Friendship has been canceld"

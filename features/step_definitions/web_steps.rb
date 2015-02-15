@@ -75,6 +75,18 @@ Then(/^my request box should be empty$/) do
   expect(User.find_by_email(FactoryGirl.attributes_for(:user)[:email]).friend_requests).to be_empty
 end
 
+Given(/^user "(.*?)" and I are friends$/) do |email|
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  friend = FactoryGirl.create(:user, email: email)
+  FactoryGirl.create(:friendship, user_1: me, user_2: friend, user_2_status: 'active')
+end
+
+Then(/^I should not be friend with "(.*?)"$/) do |email|
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  friend = User.find_by_email(email)
+  expect(me.friend?(friend)).to be_falsey
+end
+
 
 # OTHER USERS
 

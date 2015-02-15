@@ -19,7 +19,7 @@ class FriendshipsController < ApplicationController
   def destroy
     friendship = Friendship.find(params[:id])
     friendship.destroy
-    redirect_to friendship_requests_path, notice: "You declined #{friendship.user_1.email} friend request"
+    redirect_to friendship_requests_path, notice: "Friendship has been canceld"
   end
 
   def requests

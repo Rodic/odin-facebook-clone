@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   def friend?(other)
     ids = { id_1: self.id, id_2: other.id }
-    Friendship.where('user_1_id=:id_1 AND user_2_id=:id_2 OR user_1_id=:id_2 AND user_2_id=:id_1', ids).any?
+    Friendship.where('user_1_id=:id_1 AND user_2_id=:id_2 OR user_1_id=:id_2 AND user_2_id=:id_1', ids).first
   end
 
   def addable?(other)

@@ -173,6 +173,5 @@ RSpec.describe User, type: :model do
       expect(user.addable?(user_3)).to be_truthy
       expect(user_3.addable?(friend)).to be_truthy
     end
-
   end
 end

@@ -1,7 +1,6 @@
 %h1= @user.email
 
-- if current_user.addable?(@user)
-  = button_to "Add Friend", controller: "friendships", action: "create", method: :post, friend_id: @user.id
+= render partial: 'friend_buttons'
 
 %h2
   = link_to "Friends", user_friendships_path(@user)

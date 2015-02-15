@@ -1,0 +1,4 @@
+- if current_user.addable?(@user)
+  = button_to "Add Friend", controller: "friendships", action: "create", method: :post, friend_id: @user.id
+- elsif friendship = current_user.friend?(@user)
+  = button_to "Cancel Friendship", friendship_path(friendship), method: :delete
