@@ -17,12 +17,24 @@ RSpec.describe Post, type: :model do
   end
 
   describe "associations" do
+    
+    let(:post) { FactoryGirl.create(:post) }
+
     it "has owner" do
-      expect(FactoryGirl.create(:post)).to respond_to(:user)
+      expect(post).to respond_to(:user)
     end
 
     it "returns correct owner" do
-      expect(FactoryGirl.create(:post).user).to eq(User.last)
+      expect(post.user).to eq(User.last)
+    end
+
+    it "has many comments" do
+      expect(post).to respond_to(:comments)
+    end
+
+    it "returns correct comments" do
+      comment = FactoryGirl.create(:comment, post: post)
+      expect(post.comments).to eq([comment])
     end
   end
 end

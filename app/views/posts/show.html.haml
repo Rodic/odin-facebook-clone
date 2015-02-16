@@ -1,5 +1,9 @@
-%p= "Post by: #{@post.user.email}"
+%p= @post.user.email
 
 %p= @post.content
 
 %p= distance_of_time_in_words(@post.created_at, Time.now)
+
+= form_for(@post.comments.build) do |f|
+  = f.text_area :content
+  = f.submit "Add comment"

@@ -9,5 +9,5 @@
       %li
         %p= post.user.email
         %p= post.content
-        %p= distance_of_time_in_words(post.created_at, Time.now.utc)
+        %p= distance_of_time_in_words(post.created_at, Time.now)
         %br

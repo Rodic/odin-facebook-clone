@@ -148,6 +148,15 @@ RSpec.describe User, type: :model do
       user_1.posts << FactoryGirl.create(:post)
       expect(user_1.posts).to eq([Post.last])
     end
+
+    it "has many comments" do
+      expect(user_1).to respond_to(:comments)
+    end
+
+    it "returns correct comments" do
+      comment = FactoryGirl.create(:comment, user: user_1)
+      expect(user_1.comments).to eq([comment])
+    end
   end
 
   describe "methods" do
