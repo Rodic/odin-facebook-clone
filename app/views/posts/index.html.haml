@@ -1,6 +1,7 @@
 %ul
   - current_user.timeline.each do |post|
     %li
-      = post.user.email
-      = post.content
-      = post.created_at
+      %p= post.user.email
+      %p= post.content
+      %p= post.created_at
+      %br
