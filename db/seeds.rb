@@ -36,3 +36,11 @@ User.all.each do |u|
     u.posts << Post.create(content: Faker::Lorem.paragraph, created_at: (rand(24*14)).hours.ago)
   end
 end
+
+Post.all.each do |p|
+  rand(5).times do
+    user = User.order('RANDOM()').first
+    puts "Inserting comment to post with id: #{p.id} by user: #{user.email}"
+    Comment.create(content: Faker::Lorem.sentence, post: p, user: user)
+  end
+end 

@@ -45,11 +45,19 @@ When(/^I visit "(.*?)" post page$/) do |content|
   visit post_path(Post.find_by_content(content))
 end
 
-
 When(/^I visit my profile page$/) do
   me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
   visit user_path(me)
 end
+
+Then(/^I should be on the "(.*?)" post page$/) do |content|
+  expect(page.current_path).to eq(post_path(Post.find_by_content(content)))
+end
+
+Then(/^I should be on the "(.*?)" comment page$/) do |content|
+  expect(page.current_path).to eq(post_comments_path(Post.find_by_content(content)))
+end
+
 
 
 # DEFAULT USER

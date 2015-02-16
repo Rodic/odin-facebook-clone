@@ -4,6 +4,13 @@
 
 %p= distance_of_time_in_words(@post.created_at, Time.now)
 
-= form_for(@post.comments.build) do |f|
+= form_for([@post, @comment]) do |f|
   = f.text_area :content
   = f.submit "Add comment"
+
+%ul
+  - @post.comments.each do |comment|
+    %li
+      = comment.content
+      by
+      = link_to comment.user.email, comment.user

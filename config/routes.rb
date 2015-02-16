@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   
   get 'friendship/requests' => 'friendships#requests'
 
-  resources :posts, only: [ :index, :create, :show ]
+  resources :posts, only: [ :index, :create, :show ] do
+    resources :comments, only: [ :create ]
+  end
 
   root 'posts#index'
   

@@ -5,9 +5,14 @@
 
 %ul
   - current_user.timeline.each do |post|
-    = link_to post do
-      %li
-        %p= post.user.email
-        %p= post.content
-        %p= distance_of_time_in_words(post.created_at, Time.now)
-        %br
+    %li
+      %p= link_to post.user.email, post.user
+      %p= link_to post.content, post
+      %p= distance_of_time_in_words(post.created_at, Time.now)
+      %ul
+        - post.comments.each do |comment|
+          %li
+            = comment.content
+            by
+            = link_to comment.user.email, comment.user
+      %br
