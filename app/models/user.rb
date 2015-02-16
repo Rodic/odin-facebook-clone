@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   has_many :invited_users,    through: :initiated_friendships,  source: :user_2, class: User
   has_many :users_invited_by, through: :friendships_invited_to, source: :user_1, class: User
 
+  has_many :posts
+
   def friendships
     Friendship.where('user_1_id=:id OR user_2_id=:id', id: id)
   end

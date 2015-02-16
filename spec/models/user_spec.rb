@@ -139,6 +139,15 @@ RSpec.describe User, type: :model do
     it "returns correct sent_requests" do
       expect(user_1.sent_requests).to eq([friendship_2])
     end
+
+    it "has posts" do
+      expect(user_1).to respond_to(:posts)
+    end
+
+    it "returns correct posts" do
+      user_1.posts << FactoryGirl.create(:post)
+      expect(user_1.posts).to eq([Post.last])
+    end
   end
 
   describe "methods" do
