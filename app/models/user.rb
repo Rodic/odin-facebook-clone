@@ -48,4 +48,8 @@ class User < ActiveRecord::Base
   def addable?(other)
     self != other && !other.friend?(self)
   end
+
+  def timeline
+    Post.where(user_id: friends.ids).includes(:user).order('created_at DESC')
+  end
 end

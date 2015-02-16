@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   
   get 'friendship/requests' => 'friendships#requests'
 
+  resources :posts, only: [ :index ]
+
   root 'users#show'
   
   # The priority is based upon order of creation: first created -> highest priority.

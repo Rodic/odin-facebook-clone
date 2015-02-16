@@ -182,5 +182,30 @@ RSpec.describe User, type: :model do
       expect(user.addable?(user_3)).to be_truthy
       expect(user_3.addable?(friend)).to be_truthy
     end
+
+    it "has timeline" do
+      expect(user).to respond_to(:timeline)
+    end
+
+    it "returns correct posts" do
+      user = FactoryGirl.create(:user)
+
+      friend_1 = FactoryGirl.create(:user, email: 'firend1@odin-facebook.com')
+      p1 = FactoryGirl.create(:post, content: "new post", user: friend_1, created_at: 1.hour.ago)
+      p2 = FactoryGirl.create(:post, content: "very old post", user: friend_1, created_at: 1.week.ago)
+      
+      friend_2 = FactoryGirl.create(:user, email: 'friend2@odin-facebook.com')
+      p3 = FactoryGirl.create(:post, content: "older post", user: friend_2, created_at: 1.day.ago)
+
+      not_friend = FactoryGirl.create(:user, email: 'not@odin-facebook.com')
+      p4 = FactoryGirl.create(:post, content: "test", user: not_friend, created_at: 2.days.ago)
+
+      FactoryGirl.create(:friendship, user_1: user, user_2: friend_1)
+      FactoryGirl.create(:friendship, user_1: user, user_2: friend_2)
+
+      expect(user.friends).to contain_exactly(friend_1, friend_2)
+
+      expect(user.timeline).to eq([p1, p3, p2])
+    end
   end
 end
