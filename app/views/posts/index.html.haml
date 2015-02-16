@@ -1,3 +1,8 @@
+= form_for(@post) do |f|
+  = f.text_area :content
+  = f.hidden_field :user_id
+  = f.submit "Post!"
+
 %ul
   - current_user.timeline.each do |post|
     %li

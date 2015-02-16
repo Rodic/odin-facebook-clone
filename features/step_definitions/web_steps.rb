@@ -21,10 +21,22 @@ Then(/^I should be on the "(.*?)" page$/) do |pg|
     expect(page.current_path).to eq(new_user_registration_path)
   when "signin"
     expect(page.current_path).to eq(new_user_session_path)
+  when "timeline"
+    expect(page.current_path).to eq(posts_path)
   else
     raise "Unknown page: #{page}. Implement it in web_steps.rb"
   end
 end
+
+When(/^I visit the "(.*?)" page$/) do |page|
+  case page
+  when "timeline"
+    visit posts_path
+  else
+    raise "Unknown page: #{page}: Implement it in web_steps.rb"
+  end
+end
+
 
 When(/^I visit "(.*?)" profile page$/) do |email|
   visit user_path(User.find_by_email(email))

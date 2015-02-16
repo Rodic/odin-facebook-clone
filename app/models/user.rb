@@ -50,6 +50,6 @@ class User < ActiveRecord::Base
   end
 
   def timeline
-    Post.where(user_id: friends.ids).includes(:user).order('created_at DESC')
+    Post.where(user_id: friends.ids << id).includes(:user).order('created_at DESC')
   end
 end

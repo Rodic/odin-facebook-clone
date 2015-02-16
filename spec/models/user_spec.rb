@@ -190,6 +190,8 @@ RSpec.describe User, type: :model do
     it "returns correct posts" do
       user = FactoryGirl.create(:user)
 
+      p0 = FactoryGirl.create(:post, content: "newest post", user: user, created_at: 1.minute.ago)
+
       friend_1 = FactoryGirl.create(:user, email: 'firend1@odin-facebook.com')
       p1 = FactoryGirl.create(:post, content: "new post", user: friend_1, created_at: 1.hour.ago)
       p2 = FactoryGirl.create(:post, content: "very old post", user: friend_1, created_at: 1.week.ago)
@@ -205,7 +207,7 @@ RSpec.describe User, type: :model do
 
       expect(user.friends).to contain_exactly(friend_1, friend_2)
 
-      expect(user.timeline).to eq([p1, p3, p2])
+      expect(user.timeline).to eq([p0, p1, p3, p2])
     end
   end
 end
