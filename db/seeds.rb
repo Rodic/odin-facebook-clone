@@ -29,3 +29,10 @@ end
     retry
   end
 end
+
+User.all.each do |u|
+  rand(10).times do
+    puts "Inserting posts for #{u.email}"
+    u.posts << Post.create(content: Faker::Lorem.paragraph, created_at: (rand(24*14)).hours.ago)
+  end
+end
