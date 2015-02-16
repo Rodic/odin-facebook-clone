@@ -37,10 +37,14 @@ When(/^I visit the "(.*?)" page$/) do |page|
   end
 end
 
-
 When(/^I visit "(.*?)" profile page$/) do |email|
   visit user_path(User.find_by_email(email))
 end
+
+When(/^I visit "(.*?)" post page$/) do |content|
+  visit post_path(Post.find_by_content(content))
+end
+
 
 When(/^I visit my profile page$/) do
   me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
@@ -97,6 +101,11 @@ Then(/^I should not be friend with "(.*?)"$/) do |email|
   me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
   friend = User.find_by_email(email)
   expect(me.friend?(friend)).to be_falsey
+end
+
+Given(/^there is post with content "(.*?)"$/) do |content|
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  FactoryGirl.create(:post, content: content, user: me)
 end
 
 

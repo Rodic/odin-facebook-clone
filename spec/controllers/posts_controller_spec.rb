@@ -21,4 +21,18 @@ RSpec.describe PostsController, type: :controller do
       expect{post :create, post: { content: "Test", user_id: user.id }}.to change(Post, :count).by(1)
     end
   end
+
+  describe "show" do
+
+    let(:post) { FactoryGirl.create(:post, user: user) }
+
+    it "renders correct template" do
+      expect(get :show, id: post.id).to render_template("show")
+    end
+
+    it "provides correct val for instance var" do
+      get :show, id: post.id
+      expect(assigns(:post)).to eq(post)
+    end
+  end
 end

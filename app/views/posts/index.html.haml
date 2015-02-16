@@ -5,8 +5,9 @@
 
 %ul
   - current_user.timeline.each do |post|
-    %li
-      %p= post.user.email
-      %p= post.content
-      %p= post.created_at
-      %br
+    = link_to post do
+      %li
+        %p= post.user.email
+        %p= post.content
+        %p= distance_of_time_in_words(post.created_at, Time.now.utc)
+        %br
