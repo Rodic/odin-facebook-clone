@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
 
   include LikesHelper
-
+  
   validates :content, presence: true
   validates :user_id, presence: true
 

@@ -55,4 +55,20 @@ class User < ActiveRecord::Base
   def timeline
     Post.where(user_id: friends.ids << id).includes(:user, :comments).order('created_at DESC')
   end
+
+  def liked?(likeable)
+    # to avoid hundreds of queries in timeline when displaying like/unlike buttons
+    # all user likes will be loaded once per request in instance vars
+    @liked_posts    ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Post'))
+    @liked_comments ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Comment'))
+    @liked_posts[likeable.id] || @liked_comments[likeable.id]
+  end
+
+  private
+
+    def likeable_array_to_hash(likeables)
+      h = Hash.new
+      likeables.each { |likeable| h[likeable[:likeable_id]] = likeable[:id] }
+      h
+    end
 end
