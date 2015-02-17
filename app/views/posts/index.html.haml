@@ -7,6 +7,7 @@
   - current_user.timeline.each do |post|
     %li
       %p= link_to post.user.email, post.user
+      = render partial: 'likes/post_like_buttons', locals: { post: post }
       %p= link_to post.content, post
       %p= distance_of_time_in_words(post.created_at, Time.now)
       %ul
@@ -15,4 +16,5 @@
             = comment.content
             by
             = link_to comment.user.email, comment.user
+            = render partial: 'likes/comment_like_buttons', locals: { comment: comment }
       %br
