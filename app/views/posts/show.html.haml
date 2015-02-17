@@ -1,6 +1,6 @@
 %p= @post.user.email
 
-%p= button_to "Like", post_likes_path(@post), method: :post
+= render partial: 'likes/post_like_buttons', locals: { post: @post }
 
 %p= @post.content
 
@@ -13,7 +13,7 @@
 %ul
   - @post.comments.each do |comment|
     %li
-      = button_to "like", comment_likes_path(comment), method: :post
+      = render partial: 'likes/comment_like_buttons', locals: { comment: comment }
       = comment.content
       by
       = link_to comment.user.email, comment.user
