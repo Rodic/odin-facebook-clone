@@ -157,6 +157,16 @@ RSpec.describe User, type: :model do
       comment = FactoryGirl.create(:comment, user: user_1)
       expect(user_1.comments).to eq([comment])
     end
+
+    it "has many likes" do
+      expect(user_1).to respond_to(:likes)
+    end
+
+    it "returns correct likes" do
+      comment = FactoryGirl.create(:comment, user: user_2)
+      like = FactoryGirl.create(:like, likeable: comment, user: user_1)
+      expect(user_1.likes).to eq([like])
+    end
   end
 
   describe "methods" do
