@@ -1,5 +1,7 @@
 class Post < ActiveRecord::Base
 
+  include LikesHelper
+
   validates :content, presence: true
   validates :user_id, presence: true
 
@@ -7,8 +9,4 @@ class Post < ActiveRecord::Base
   has_many :comments
 
   has_many :likes, as: :likeable
-
-  def liked_by?(user)
-    Like.find_by(likeable: self, user: user)
-  end
 end

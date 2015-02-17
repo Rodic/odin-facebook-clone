@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
 
+  include LikesHelper
+
   default_scope -> { includes(:user).order('created_at DESC') }
 
   validates :content, presence: true, length: { maximum: 1000 }
@@ -10,8 +12,4 @@ class Comment < ActiveRecord::Base
   belongs_to :post
 
   has_many :likes, as: :likeable
-
-  def liked_by?(user)
-    Like.find_by(likeable: self, user: user)
-  end
 end
