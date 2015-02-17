@@ -58,6 +58,11 @@ Then(/^I should be on the "(.*?)" comment page$/) do |content|
   expect(page.current_path).to eq(post_comments_path(Post.find_by_content(content)))
 end
 
+Then(/^post "(.*?)" should have one like from me$/) do |content|
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  expect(Post.find_by_content(content).likes.count).to eq(1)
+  expect(Post.find_by_content(content).likes.last.user).to eq(me)
+end
 
 
 # DEFAULT USER

@@ -1,5 +1,7 @@
 %p= @post.user.email
 
+%p= link_to "Like", "#"
+
 %p= @post.content
 
 %p= distance_of_time_in_words(@post.created_at, Time.now)
