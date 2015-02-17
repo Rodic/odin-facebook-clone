@@ -123,8 +123,9 @@ end
 
 Then(/^post "(.*?)" should have one like from me$/) do |content|
   me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
-  expect(Post.find_by_content(content).likes.count).to eq(1)
-  expect(Post.find_by_content(content).likes.last.user).to eq(me)
+  likes = Post.find_by_content(content).likes 
+  expect(likes.count).to eq(1)
+  expect(likes.last.user).to eq(me)
 end
 
 Then(/^comment "(.*?)" should have one like from me$/) do |content|
