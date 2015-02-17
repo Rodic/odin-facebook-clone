@@ -30,6 +30,7 @@ RSpec.describe Comment, type: :model do
     let(:post)    { FactoryGirl.create(:post) }
     let(:user)    { FactoryGirl.create(:user, email: "comment-poster@odin-facebook.com") }
     let(:comment) { FactoryGirl.create(:comment, user: user, post: post) }
+    let(:like)    { FactoryGirl.create(:like, user: user, likeable: comment) }
 
     it "belongs to user" do
       expect(comment).to respond_to(:user)
@@ -45,6 +46,14 @@ RSpec.describe Comment, type: :model do
 
     it "returns correct post" do
       expect(comment.post).to eq(post)
+    end
+
+    it "has many likes" do
+      expect(comment).to respond_to(:likes)
+    end
+
+    it "returns correc posts" do
+      expect(comment.likes).to eq([like])
     end
   end
 end

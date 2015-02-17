@@ -19,7 +19,8 @@ RSpec.describe Post, type: :model do
   describe "associations" do
     
     let(:post) { FactoryGirl.create(:post) }
-
+    let(:like) { FactoryGirl.create(:like, likeable: post) }
+    
     it "has owner" do
       expect(post).to respond_to(:user)
     end
@@ -35,6 +36,14 @@ RSpec.describe Post, type: :model do
     it "returns correct comments" do
       comment = FactoryGirl.create(:comment, post: post)
       expect(post.comments).to eq([comment])
+    end
+
+    it "has many likes" do
+      expect(post).to respond_to(:likes)
+    end
+
+    it "returns correct likes" do
+      expect(post.likes).to eq([like])
     end
   end
 end
