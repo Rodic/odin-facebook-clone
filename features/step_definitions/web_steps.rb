@@ -58,12 +58,6 @@ Then(/^I should be on the "(.*?)" comment page$/) do |content|
   expect(page.current_path).to eq(post_comments_path(Post.find_by_content(content)))
 end
 
-Then(/^post "(.*?)" should have one like from me$/) do |content|
-  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
-  expect(Post.find_by_content(content).likes.count).to eq(1)
-  expect(Post.find_by_content(content).likes.last.user).to eq(me)
-end
-
 
 # DEFAULT USER
 
@@ -119,6 +113,25 @@ end
 Given(/^there is post with content "(.*?)"$/) do |content|
   me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
   FactoryGirl.create(:post, content: content, user: me)
+end
+
+Given(/^there is comment for post "(.*?)" with content "(.*?)"$/) do |post_content, comment_content|
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  post = Post.find_by_content(post_content)
+  FactoryGirl.create(:comment, user: me, post: post, content: comment_content)
+end
+
+Then(/^post "(.*?)" should have one like from me$/) do |content|
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  expect(Post.find_by_content(content).likes.count).to eq(1)
+  expect(Post.find_by_content(content).likes.last.user).to eq(me)
+end
+
+Then(/^comment "(.*?)" should have one like from me$/) do |content|
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  comment = Comment.find_by_content(content)
+  expect(comment.likes.count).to eq(1)
+  expect(comment.likes.last.user).to eq(me)
 end
 
 

@@ -1,6 +1,6 @@
 %p= @post.user.email
 
-%p= link_to "Like", "#"
+%p= button_to "Like", post_likes_path(@post), method: :post
 
 %p= @post.content
 
@@ -13,6 +13,7 @@
 %ul
   - @post.comments.each do |comment|
     %li
+      = button_to "like", comment_likes_path(comment), method: :post
       = comment.content
       by
       = link_to comment.user.email, comment.user
