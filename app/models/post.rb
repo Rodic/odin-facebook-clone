@@ -7,4 +7,8 @@ class Post < ActiveRecord::Base
   has_many :comments
 
   has_many :likes, as: :likeable
+
+  def liked_by?(user)
+    Like.find_by(likeable: self, user: user)
+  end
 end

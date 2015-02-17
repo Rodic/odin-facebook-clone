@@ -46,4 +46,21 @@ RSpec.describe Post, type: :model do
       expect(post.likes).to eq([like])
     end
   end
+
+  describe "user methods" do
+
+    let(:user) { FactoryGirl.create(:user) }
+    let(:post) { FactoryGirl.create(:post, user: user) }
+    let!(:like) { FactoryGirl.create(:like, likeable: post, user: user) }
+
+    it "have liked_by? method" do
+      expect(post).to respond_to(:liked_by?)
+    end
+
+    it "can determine did user liked it" do
+      not_liker = FactoryGirl.create(:user, email: "not-liking@odin-facebook.com")
+      expect(post.liked_by?(user)).to be_truthy
+      expect(post.liked_by?(not_liker)).to be_falsey
+    end
+  end
 end

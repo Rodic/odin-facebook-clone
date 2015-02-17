@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :likes, only: [ :create ]
   end
 
+  resources :likes, only: [ :destroy ]
+
   root 'posts#index'
   
   # The priority is based upon order of creation: first created -> highest priority.

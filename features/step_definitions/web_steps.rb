@@ -135,6 +135,30 @@ Then(/^comment "(.*?)" should have one like from me$/) do |content|
   expect(comment.likes.last.user).to eq(me)
 end
 
+Given(/^I liked post "(.*?)"$/) do |content|
+  step 'I am logged'
+  step "there is post with content \"#{content}\""
+  step "I visit \"#{content}\" post page"
+  step 'I click "Like"'
+end
+
+Then(/^post "(.*?)" should not have likes$/) do |content|
+  expect(Post.find_by_content(content).likes.count).to eq(0)
+end
+
+Given(/^I liked "(.*?)" comment of "(.*?)" post$/) do |comment_content, post_content|
+  step 'I am logged'
+  step "there is post with content \"#{post_content}\""
+  step "there is comment for post \"#{post_content}\" with content \"#{comment_content}\""
+  step "I visit \"#{post_content}\" post page"
+  step 'I click "like"'
+end
+
+Then(/^comment "(.*?)" should not have likes$/) do |content|
+  expect(Comment.find_by_content(content).likes.count).to eq(0)
+end
+
+
 
 # OTHER USERS
 

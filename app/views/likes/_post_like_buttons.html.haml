@@ -1,1 +1,4 @@
-%p= button_to "Like", post_likes_path(post), method: :post
+- if (lid = post.liked_by?(current_user))
+  %p= button_to "Unlike", like_path(lid), method: :delete
+- else
+  %p= button_to "Like", post_likes_path(post), method: :post

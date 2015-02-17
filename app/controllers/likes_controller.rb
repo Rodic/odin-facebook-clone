@@ -6,6 +6,16 @@ class LikesController < ApplicationController
     redirect_to(:back)
   end
 
+  def destroy
+    like = Like.find(params[:id])
+    if like.user = current_user
+      like.destroy
+    else
+      flash[:notice] = "You are not authorized to destroy that 'Like'"
+    end
+    redirect_to(:back)
+  end
+
   private
 
     def find_likeable
