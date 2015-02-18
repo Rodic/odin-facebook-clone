@@ -15,6 +15,13 @@ RSpec.describe Like, type: :model do
     it "must has likable_id" do
       expect(FactoryGirl.build(:like, likeable_id: nil)).to_not be_valid
     end
+
+    it "is unique" do
+      FactoryGirl.create(:like, likeable_id: 1, likeable_type: "Post", user_id: 1)
+      expect{ 
+        FactoryGirl.create(:like, likeable_id: 1, likeable_type: "Post", user_id: 1) 
+      }.to raise_error(ActiveRecord::RecordNotUnique)
+    end
   end
 
   
