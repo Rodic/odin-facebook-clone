@@ -44,3 +44,18 @@ Post.all.each do |p|
     Comment.create(content: Faker::Lorem.sentence, post: p, user: user)
   end
 end 
+
+5000.times do
+  comment_count = Comment.count 
+
+  # comment model has order in default_scope, RANDOM() won't work
+  likeable = rand > 0.3 ? Post.order('RANDOM()').first : Comment.find(1+rand(comment_count))
+  user = User.order('RANDOM()').first
+
+  begin
+    Like.create(likeable: likeable, user: user)
+    puts "#{user.email} likes #{likeable.class} with id #{likeable.id}"
+  rescue
+    puts "#{user.email} already liked #{likeable.class} with id #{likeable.id}"
+  end
+end
