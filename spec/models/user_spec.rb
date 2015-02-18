@@ -75,6 +75,7 @@ RSpec.describe User, type: :model do
     let!(:friendship_5) { FactoryGirl.create(:friendship, user_1: user_2, user_2: user_3) }
     let!(:friendship_6) { FactoryGirl.create(:friendship, user_1: user_5, user_2: user_2) }
 
+    let!(:profile) { FactoryGirl.create(:profile, user: user_1) }
     
     it "has many initiated_friendships" do
       expect(user_1).to respond_to(:initiated_friendships)
@@ -166,6 +167,14 @@ RSpec.describe User, type: :model do
       comment = FactoryGirl.create(:comment, user: user_2)
       like = FactoryGirl.create(:like, likeable: comment, user: user_1)
       expect(user_1.likes).to eq([like])
+    end
+
+    it "has one profile" do
+      expect(user_1).to respond_to(:profile)
+    end
+
+    it "returns correct profile" do
+      expect(user_1.profile).to eq(profile)
     end
   end
 

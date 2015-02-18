@@ -18,8 +18,10 @@ class User < ActiveRecord::Base
   
   has_many :posts
   has_many :comments
-  
+
   has_many :likes
+
+  has_one :profile
 
   def friendships
     Friendship.where('user_1_id=:id OR user_2_id=:id', id: id)
