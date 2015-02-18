@@ -5,6 +5,8 @@
 - if current_user == @user
   = link_to "Edit profile", edit_profile_path
 
+= gravatar_for(@user)
+
 %table
   %tr
     %th About me
