@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   end
   
   def timeline
-    Post.where(user_id: friends.ids << id).includes(:user, :comments).order('created_at DESC')
+    Post.where(user_id: friends.ids << id).includes(:user, :comments, :likes).order('created_at DESC')
   end
 
   def liked?(likeable)
