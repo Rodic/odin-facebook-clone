@@ -27,5 +27,11 @@
     %th Work
     %td= @user.profile.work
 
+%ul
+  - @posts.each do |post|
+    %li
+      = render partial: 'likes/post_like_buttons', locals: { post: post }
+      = link_to post.content, post
+
 %h2
   = link_to "Friends", user_friendships_path(@user)
