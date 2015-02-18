@@ -3,10 +3,10 @@
   = f.text_area :about_me
 
   = f.label :gender
-  = f.select(:gender, %w{ Female Male Other}.map { |g| [ g, g ] })
+  = f.select(:gender, [ nil, "Female", "Male", "Other" ].map { |g| [ g, g ] })
 
   = f.label :age
-  = f.select(:age, (1..120).map { |n| [ n, n ] })
+  = f.select(:age, (1..120).to_a.unshift(nil).map { |n| [ n, n ] })
 
   = f.label :city
   = f.text_field :city

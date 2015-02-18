@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = current_user.profile
-    if @profile.update_attributes(profile_params)
+    if @profile.update_attributes!(profile_params)
       redirect_to current_user, notice: "Your profile has been updated successfully"
     else
       flash.now[:warning] = "Failed to update profile"
