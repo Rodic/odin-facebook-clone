@@ -2,5 +2,28 @@
 
 = render partial: 'friend_buttons'
 
+- if current_user == @user
+  = link_to "Edit profile", edit_profile_path
+
+%table
+  %tr
+    %th About me
+    %td= @user.profile.about_me
+  %tr
+    %th Gender
+    %td= @user.profile.gender
+  %tr
+    %th Age
+    %td= @user.profile.age
+  %tr
+    %th City
+    %td= @user.profile.city
+  %tr
+    %th Country
+    %td= @user.profile.country
+  %tr
+    %th Work
+    %td= @user.profile.work
+
 %h2
   = link_to "Friends", user_friendships_path(@user)

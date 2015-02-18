@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
 
   has_one :profile
 
+  after_create :build_empty_profile
+
   def friendships
     Friendship.where('user_1_id=:id OR user_2_id=:id', id: id)
   end
@@ -72,5 +74,9 @@ class User < ActiveRecord::Base
       h = Hash.new
       likeables.each { |likeable| h[likeable[:likeable_id]] = likeable[:id] }
       h
+    end
+
+    def build_empty_profile
+      Profile.create!(user: self)
     end
 end

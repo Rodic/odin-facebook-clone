@@ -50,12 +50,21 @@ When(/^I visit my profile page$/) do
   visit user_path(me)
 end
 
+Given(/^I am on my profile page$/) do
+ step "I visit my profile page" 
+end
+
 Then(/^I should be on the "(.*?)" post page$/) do |content|
   expect(page.current_path).to eq(post_path(Post.find_by_content(content)))
 end
 
 Then(/^I should be on the "(.*?)" comment page$/) do |content|
   expect(page.current_path).to eq(post_comments_path(Post.find_by_content(content)))
+end
+
+Then(/^I should be on my profile page$/) do
+  me = User.find_by_email(FactoryGirl.attributes_for(:user)[:email])
+  expect(page.current_path).to eq(user_path(me))
 end
 
 
@@ -195,8 +204,12 @@ Then(/^user "(.*?)" should have invite from me$/) do |email|
 end
 
 
-# FILLING
+# FILLING/SELECTING
 
 When(/^I fill in "(.*?)" with "(.*?)"$/) do |field, value|
   fill_in field, with: value
+end
+
+When(/^I select "(.*?)" for "(.*?)"$/) do |value, option|
+  select value, from: option
 end
