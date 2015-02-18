@@ -25,6 +25,7 @@
             = link_to comment.user.email, comment.user
             
             .comment_likes
+              = pluralize(comment.likes.size, "Like")
               -if (lid = current_user.liked?(comment))
                 = button_to "unlike", like_path(lid), method: :delete
               - else

@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
 
   include LikesHelper
 
-  default_scope -> { includes(:user).order('created_at DESC') }
+  default_scope -> { includes(:user, :likes).order('created_at DESC') }
 
   validates :content, presence: true, length: { maximum: 1000 }
   validates :user_id, presence: true
