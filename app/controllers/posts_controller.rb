@@ -22,6 +22,7 @@ class PostsController < ApplicationController
   private
   
     def post_params
+      params[:post][:user_id] = current_user.id
       params.require(:post).permit(:content, :user_id)
     end
 end
