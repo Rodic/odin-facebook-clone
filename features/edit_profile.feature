@@ -13,6 +13,7 @@ Feature: Edit profile
     And I fill in "City" with "Belgrade"
     And I fill in "Country" with "Serbia"
     And I fill in "Work" with "Freelancing on Elance"
+    And I fill in "Website" with "www.website.me"
     And I click "Update"
     Then I should be on my profile page
     And I should see "Your profile has been updated successfully"
@@ -22,3 +23,4 @@ Feature: Edit profile
     And I should see "Belgrade"
     And I should see "Serbia"
     And I should see "Freelancing on Elance"
+    And I should see "www.website.me"
