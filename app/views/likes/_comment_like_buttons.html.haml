@@ -1,5 +1,0 @@
-= pluralize(comment.likes.size, "Like")
--if comment.liked_by?(current_user)
-  = button_to "unlike", comment_like_path(comment), method: :delete
-- else
-  = button_to "like", comment_likes_path(comment), method: :post

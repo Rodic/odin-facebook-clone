@@ -1,6 +1,0 @@
-.post_likes
-  = pluralize(post.likers.size, "Like")
-  - if post.liked_by?(current_user)
-    = button_to "Unlike", post_like_path(post), method: :delete
-  - else
-    = button_to "Like", post_likes_path(post), method: :post

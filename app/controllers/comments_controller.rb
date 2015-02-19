@@ -5,9 +5,8 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(params[:post_id]), notice: "Comment added successfully!"
     else
-      @post = @comment.post
-      flash.now[:warning] = "Faild to post comment!"
-      render 'posts/show'
+      flash[:warning] = "Faild to post comment!"
+      redirect_to(@comment.post)
     end
   end
 

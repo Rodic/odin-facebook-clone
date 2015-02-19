@@ -19,5 +19,5 @@ Feature: Add comment to a post
     When I visit "Hello World!" post page
     And I fill in "comment_content" with ""
     And I click "Add comment"
-    Then I should be on the "Hello World!" comment page
+    Then I should be on the "Hello World!" post page
     And I should see "Faild to post comment!"
