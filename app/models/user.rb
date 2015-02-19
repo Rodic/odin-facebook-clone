@@ -61,11 +61,15 @@ class User < ActiveRecord::Base
   end
 
   def liked?(likeable)
-    # to avoid hundreds of queries in timeline when displaying like/unlike buttons
-    # all user likes will be loaded once per request in instance vars
-    @liked_posts    ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Post'))
-    @liked_comments ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Comment'))
-    @liked_posts[likeable.id] || @liked_comments[likeable.id]
+    case likeable.class.name 
+    when "Post"
+      @liked_posts    ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Post'))
+      @liked_posts[likeable.id]
+    when "Comment"
+      @liked_comments ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Comment'))
+      @liked_comments[likeable.id]
+    else
+    end
   end
   
   private
