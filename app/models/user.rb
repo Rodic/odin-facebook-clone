@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
 
   after_create :build_empty_profile
 
+  default_scope -> { order('id ASC') }
+
   def friendships
     Friendship.where('user_1_id=:id OR user_2_id=:id', id: id)
   end
