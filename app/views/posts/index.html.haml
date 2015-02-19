@@ -3,8 +3,7 @@
   = f.submit "Post!"
 
 %ul
-  - current_user.timeline.each do |post|
+  - @posts.each do |post|
     %li
-      = link_to(post) do
-        = render partial: 'post', locals: { post: post }
+      = render partial: 'post', locals: { post: post }
       %br
