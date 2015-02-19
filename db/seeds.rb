@@ -59,3 +59,15 @@ end
     puts "#{user.email} already liked #{likeable.class} with id #{likeable.id}"
   end
 end
+
+Profile.all.each do |p|
+  puts "Updating #{p.user.email}'s profile"
+  p.about_me = Faker::Lorem.paragraph
+  p.gender = [ "Male", "Female" ].sample
+  p.age = (14..60).to_a.sample
+  p.city = Faker::Address.city
+  p.country = Faker::Address.country
+  p.work = Faker::Company.name
+  p.website = Faker::Internet.domain_name
+  p.save!
+end
