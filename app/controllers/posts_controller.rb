@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    p = Post.new(post_params)
+    p = post_from_params
     if p.save
       flash[:notice] = "Your post has been successfully created!"
     else
@@ -21,8 +21,10 @@ class PostsController < ApplicationController
 
   private
   
-    def post_params
-      params[:post][:user_id] = current_user.id
-      params.require(:post).permit(:content, :user_id)
+    def post_from_params
+      Post.new do |p|
+        p.user_id = current_user.id
+        p.content = params[:post][:content]
+      end
     end
 end
