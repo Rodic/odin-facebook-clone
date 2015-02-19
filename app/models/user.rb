@@ -71,9 +71,7 @@ class User < ActiveRecord::Base
   private
 
     def likeable_array_to_hash(likeables)
-      h = Hash.new
-      likeables.each { |likeable| h[likeable[:likeable_id]] = likeable[:id] }
-      h
+      likeables.inject(Hash.new) { |acc, likeable| acc[likeable.likeable_id] = likeable.id; acc }
     end
 
     def build_empty_profile
