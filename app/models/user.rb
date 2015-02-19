@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
     @liked_comments ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Comment'))
     @liked_posts[likeable.id] || @liked_comments[likeable.id]
   end
-
+  
   private
 
     def likeable_array_to_hash(likeables)

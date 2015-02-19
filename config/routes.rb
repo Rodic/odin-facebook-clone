@@ -3,11 +3,11 @@ Rails.application.routes.draw do
 
   devise_for :users, :skip => [:sessions, :registrations]
   as :user do
-    get    'signup'  => 'devise/registrations#new',    :as => :new_user_registration
-    post   'signup'  => 'devise/registrations#create', :as => :user_registration
-    get    'signin'  => 'devise/sessions#new',         :as => :new_user_session
-    post   'signin'  => 'devise/sessions#create',      :as => :user_session
-    delete 'signout' => 'devise/sessions#destroy',     :as => :destroy_user_session
+    get    'signup'  => 'registrations#new',       :as => :new_user_registration
+    post   'signup'  => 'registrations#create',    :as => :user_registration
+    get    'signin'  => 'devise/sessions#new',     :as => :new_user_session
+    post   'signin'  => 'devise/sessions#create',  :as => :user_session
+    delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
   
   resources :users, only: [ :show ] do
