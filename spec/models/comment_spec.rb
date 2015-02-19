@@ -55,5 +55,20 @@ RSpec.describe Comment, type: :model do
     it "returns correc posts" do
       expect(comment.likes).to eq([like])
     end
+
+    it "has many likers" do
+      expect(comment).to respond_to(:likers)
+    end
+
+    it "returns correct likers" do
+      liker_1 = FactoryGirl.create(:user, email: "liker_1@odin-facebook.com")
+      liker_2 = FactoryGirl.create(:user, email: "liker_2@odin-facebook.com")
+
+      FactoryGirl.create(:like, user: liker_1, likeable: comment)
+      FactoryGirl.create(:like, user: liker_2, likeable: comment)
+
+      expect(comment.likers).to contain_exactly(liker_1, liker_2)
+    end
+
   end
 end

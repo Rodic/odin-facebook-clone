@@ -27,7 +27,7 @@ RSpec.describe LikesController, type: :controller do
     let!(:like) { FactoryGirl.create(:like, likeable: p, user: user) }
 
     it "deletes like record" do
-      expect{ delete :destroy, id: like.id }.to change(Like, :count).by(-1)
+      expect{ delete :destroy, post_id: p.id }.to change(Like, :count).by(-1)
     end
   end
 end

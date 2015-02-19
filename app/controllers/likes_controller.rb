@@ -7,12 +7,8 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    like = Like.find(params[:id])
-    if like.user = current_user
-      like.destroy
-    else
-      flash[:notice] = "You are not authorized to destroy that 'Like'"
-    end
+    likeable = find_likeable
+    Like.where(user: current_user, likeable: likeable).first.destroy
     redirect_to(:back)
   end
 

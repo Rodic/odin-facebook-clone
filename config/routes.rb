@@ -21,14 +21,14 @@ Rails.application.routes.draw do
   resources :posts, only: [ :index, :create, :show ] do
     resources :likes, only: [ :create ]
     resources :comments, only: [ :create ]
+    resource  :like, only: [ :destroy ]
   end
 
   resources :comments, only: [] do
     resources :likes, only: [ :create ]
+    resource  :like, only: [ :destroy ]
   end
-
-  resources :likes, only: [ :destroy ]
-
+  
   resource :profile, only: [ :edit, :update ]
 
   root 'posts#index'

@@ -59,24 +59,8 @@ class User < ActiveRecord::Base
   def timeline
     Post.where(user_id: friends.ids << id).includes(:user, :comments, :likes).order('created_at DESC')
   end
-
-  def liked?(likeable)
-    case likeable.class.name 
-    when "Post"
-      @liked_posts    ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Post'))
-      @liked_posts[likeable.id]
-    when "Comment"
-      @liked_comments ||= likeable_array_to_hash(Like.where(user: self, likeable_type: 'Comment'))
-      @liked_comments[likeable.id]
-    else
-    end
-  end
   
   private
-
-    def likeable_array_to_hash(likeables)
-      likeables.inject(Hash.new) { |acc, likeable| acc[likeable.likeable_id] = likeable.id; acc }
-    end
 
     def build_empty_profile
       Profile.create!(user: self)

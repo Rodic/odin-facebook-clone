@@ -237,30 +237,5 @@ RSpec.describe User, type: :model do
 
       expect(user.timeline).to eq([p0, p1, p3, p2])
     end
-
-    it "can determine if likeable is liked" do
-      expect(user).to respond_to(:liked?)
-    end
-
-    it "returns correc likeables" do
-      post_1 = FactoryGirl.create(:post, user: user)
-      post_2 = FactoryGirl.create(:post, user: friend)
-      like   = FactoryGirl.create(:like, user: user, likeable: post_1)
-      
-      expect(user.liked?(post_1)).to eq(like.id)
-      expect(user.liked?(post_2)).to be_falsey
-      expect(friend.liked?(post_1)).to be_falsey
-    end
-
-    it "doesn't mix posts and comments" do
-      post    = FactoryGirl.create(:post, id: 10000, user: user)
-      comment = FactoryGirl.create(:comment, id: 10000, user: user)
-      expect(post.id).to eq(comment.id)
-
-      like = FactoryGirl.create(:like, user: friend, likeable: comment)
-      
-      expect(friend.liked?(post)).to be_falsey
-      expect(friend.liked?(comment)).to be_truthy
-    end
   end
 end
