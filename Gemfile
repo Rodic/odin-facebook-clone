@@ -13,6 +13,7 @@ gem 'haml-rails',           '0.8.2'
 gem 'figaro',               '1.1.0'
 gem 'devise',               '3.4.1'
 gem 'faker',                '1.4.3'
+gem 'will_paginate',        '3.0.7'
 
 group :development, :test do
   gem 'rspec-rails',        '3.2.0'

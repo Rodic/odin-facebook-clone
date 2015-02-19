@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = current_user.timeline
+    @posts = current_user.timeline.paginate(:page => params[:page], :per_page => 20)
     @post = current_user.posts.build
   end
 
