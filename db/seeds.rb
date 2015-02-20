@@ -14,12 +14,14 @@ User.create!(email: 'alec.rodic@gmail.com', password: "supersecret", password_co
   User.create!(email: email, password: "supersecret", password_confirmation: "supersecret")
 end
 
+user_count = User.count
+
 1000.times do
-  user_1 = User.order('RANDOM()').first
+  user_1 = User.find(1+rand(user_count))
    
   begin
     begin
-      user_2 = User.order('RANDOM()').first
+      user_2 = User.find(1+rand(user_count))
     end while user_1 == user_2
 
     puts "Adding friends #{user_1.email} - #{user_2.email}"
@@ -39,7 +41,7 @@ end
 
 Post.all.each do |p|
   rand(5).times do
-    user = User.order('RANDOM()').first
+    user = User.find(1+rand(user_count))
     puts "Inserting comment to post with id: #{p.id} by user: #{user.email}"
     Comment.create(content: Faker::Lorem.sentence, post: p, user: user)
   end
@@ -50,7 +52,7 @@ end
 
   # comment model has order in default_scope, RANDOM() won't work
   likeable = rand > 0.3 ? Post.order('RANDOM()').first : Comment.find(1+rand(comment_count))
-  user = User.order('RANDOM()').first
+  user = User.find(1+rand(user_count))
 
   begin
     Like.create(likeable: likeable, user: user)
