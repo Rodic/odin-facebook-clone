@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'static_pages/about'
 
-  devise_for :users, :skip => [:sessions, :registrations]
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }, :skip => [:sessions, :registrations]
   as :user do
     get    'signup'  => 'registrations#new',       :as => :new_user_registration
     post   'signup'  => 'registrations#create',    :as => :user_registration

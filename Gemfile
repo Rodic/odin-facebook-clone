@@ -14,6 +14,8 @@ gem 'figaro',               '1.1.0'
 gem 'devise',               '3.4.1'
 gem 'faker',                '1.4.3'
 gem 'will_paginate',        '3.0.7'
+gem 'omniauth',             '1.2.2'
+gem 'omniauth-google-oauth2','0.2.6'
 
 group :development, :test do
   gem 'rspec-rails',        '3.2.0'
