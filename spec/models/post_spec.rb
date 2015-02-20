@@ -61,6 +61,30 @@ RSpec.describe Post, type: :model do
     end
   end
 
+  describe "counter" do
+
+    let(:post) { FactoryGirl.create(:post) }
+
+    it "has likes_counter" do
+      expect(post).to respond_to(:likes_counter)
+    end
+
+    it "increments when comment is liked" do
+      expect(post.likes_counter).to eq(0)
+      FactoryGirl.create(:like, likeable: post)
+      expect(post.likes_counter).to eq(1)
+    end
+
+    it "decreases when comment is unliked" do
+      expect(post.likes_counter).to eq(0)
+      like = FactoryGirl.create(:like, likeable: post)
+      expect(post.likes_counter).to eq(1)
+
+      like.destroy
+      expect(post.likes_counter).to eq(0)
+    end
+  end
+
   describe "methods" do
 
     let(:post)       { FactoryGirl.create(:post) }

@@ -69,6 +69,29 @@ RSpec.describe Comment, type: :model do
 
       expect(comment.likers).to contain_exactly(liker_1, liker_2)
     end
+  end
 
+  describe "counter" do
+
+    let(:comment) { FactoryGirl.create(:comment) }
+
+    it "has likes_counter" do
+      expect(comment).to respond_to(:likes_counter)
+    end
+
+    it "increments when comment is liked" do
+      expect(comment.likes_counter).to eq(0)
+      FactoryGirl.create(:like, likeable: comment)
+      expect(comment.likes_counter).to eq(1)
+    end
+
+    it "decreases when comment is unliked" do
+      expect(comment.likes_counter).to eq(0)
+      like = FactoryGirl.create(:like, likeable: comment)
+      expect(comment.likes_counter).to eq(1)
+
+      like.destroy
+      expect(comment.likes_counter).to eq(0)
+    end
   end
 end

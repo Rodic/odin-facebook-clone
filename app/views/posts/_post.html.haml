@@ -1,7 +1,7 @@
 %p= post.user.email
 
 .post_likes
-  = pluralize(post.likers.size, "Like")
+  = pluralize(post.likes_counter, "Like")
   - if post.liked_by?(current_user)
     = button_to "Unlike", post_like_path(post), method: :delete
   - else
@@ -16,7 +16,7 @@
   - post.comments.each do |comment|
     %li
       .comment_likes
-        = pluralize(comment.likes.size, "Like")
+        = pluralize(comment.likes_counter, "Like")
         -if comment.liked_by?(current_user)
           = button_to "unlike", comment_like_path(comment), method: :delete
         - else
