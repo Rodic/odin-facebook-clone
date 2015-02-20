@@ -2,6 +2,8 @@
 
 .post_likes
   = pluralize(post.likes_counter, "Like")
+  - post.likers.each do |l|
+    = link_to l.email, user_path(l)
   - if post.liked_by?(current_user)
     = button_to "Unlike", post_like_path(post), method: :delete
   - else
@@ -17,6 +19,8 @@
     %li
       .comment_likes
         = pluralize(comment.likes_counter, "Like")
+        - comment.likers.each do |l|
+          = link_to l.email, user_path(l)
         -if comment.liked_by?(current_user)
           = button_to "unlike", comment_like_path(comment), method: :delete
         - else
