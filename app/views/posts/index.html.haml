@@ -3,9 +3,6 @@
   = f.submit "Post!"
 
 %ul
-  - @posts.each do |post|
-    %li
-      = render partial: 'post', locals: { post: post }
-      %br
+  = render partial: 'post', collection: @posts, layout: 'list_layout'
 
 = will_paginate @posts
