@@ -78,8 +78,10 @@ class User < ActiveRecord::Base
       if registered_user
         return registered_user
       else
-        User.create!(provider: access_token.provider, email: data["email"], uid: access_token.uid ,
-                     password: Devise.friendly_token[0,20])
+        user = User.create!(provider: access_token.provider, email: data["email"], uid: access_token.uid ,
+                            password: Devise.friendly_token[0,20])
+        UserMailer.welcome_email(user).deliver unless user.invalid?
+        user
       end
     end
   end
