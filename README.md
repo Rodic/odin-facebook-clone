@@ -3,12 +3,12 @@
 ## Main features:
 
 Users can:
-1. signup either through form or with google credentials
-2. add other users as friends. Friendship graph is biderctional, so user can actaully send friendship request rather than 'add' user to her friend list
-3. write posts
-4. write comments
-5. 'like' posts and comments
-6. fill their profiles
+* signup either through form or with google credentials
+* add other users as friends. Friendship graph is biderctional, so user can actaully send friendship request rather than 'add' user to her friend list
+* write posts
+* write comments
+* 'like' posts and comments
+* fill their profiles
 
 Find more at [TOP](http://www.theodinproject.com/ruby-on-rails/final-project?ref=lnav)
 
