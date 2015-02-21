@@ -125,6 +125,17 @@ RSpec.describe User, type: :model do
       expect(user_1.friends).to contain_exactly(user_2, user_3)
     end
 
+    it "has many potential friends" do
+      expect(user_1).to respond_to(:potential_friends)
+    end
+
+    it "returns correct potential friends" do
+      expect(user_2.potential_friends).to contain_exactly(user_4)
+      expect(user_3.potential_friends).to contain_exactly(user_4, user_5)
+      expect(user_4.potential_friends).to contain_exactly(user_2, user_3, user_5)
+      expect(user_5.potential_friends).to contain_exactly(user_3, user_4)
+    end
+
     it "has friend_requests" do
       expect(user_1).to respond_to(:friend_requests)
     end

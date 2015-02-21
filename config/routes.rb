@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
   
-  resources :users, only: [ :show ] do
+  resources :users, only: [ :show, :index ] do
     resources :friendships, only: [ :index ]
   end
 

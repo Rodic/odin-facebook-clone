@@ -1,0 +1,11 @@
+%h1 Find friend
+
+%ul
+  - @potential_friends.each do |f|
+    %li
+      = gravatar_for(f)
+      = link_to f.email, f
+      = button_to "Add Friend", controller: "friendships", action: "create", method: :post, friend_id: f.id
+      %br
+
+= will_paginate @potential_friends

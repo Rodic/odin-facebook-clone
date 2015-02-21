@@ -36,6 +36,12 @@ class User < ActiveRecord::Base
         .where("users.id <> :id AND (f.user_1_id = :id OR f.user_2_id = :id)", id: id)
         .where("f.user_1_status = 'active' AND f.user_2_status = 'active'")
   end
+
+  def potential_friends
+    related = User.joins("JOIN friendships f ON (users.id = f.user_1_id OR users.id = f.user_2_id)")
+              .where("(f.user_1_id = :id OR f.user_2_id = :id)", id: id).uniq.ids
+    User.where.not(id: related)
+  end
   
   def friend_requests
     friendships_invited_to.where("user_2_status='pending'")

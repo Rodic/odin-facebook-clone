@@ -31,4 +31,14 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe "index" do
+
+    let(:user) { FactoryGirl.create(:user) }
+    before { sign_in user }
+
+    it "renders correct template" do
+      expect(get :index).to render_template('index')
+    end
+  end
 end
